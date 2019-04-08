@@ -1,5 +1,5 @@
 {
-  "name": "react-native-matomo",
+  "name": "@medicinaesolutions/react-native-matomo",
   "version": "0.1.1",
   "description": "React Native adapter for Matomo native SDKs",
   "main": "index.js",
