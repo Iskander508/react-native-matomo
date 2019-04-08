@@ -1,6 +1,6 @@
 {
   "name": "@medicinaesolutions/react-native-matomo",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React Native adapter for Matomo native SDKs",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BonifyByForteil/react-native-matomo.git"
+    "url": "git+https://github.com/medicinaesolutions/react-native-matomo.git"
   },
   "keywords": [
     "react-native",
@@ -20,7 +20,7 @@
   "author": "Bonify",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/BonifyByForteil/react-native-matomo/issues"
+    "url": "https://github.com/medicinaesolutions/react-native-matomo/issues"
   },
-  "homepage": "https://github.com/BonifyByForteil/react-native-matomo#readme"
+  "homepage": "https://github.com/medicinaesolutions/react-native-matomo#readme"
 }
