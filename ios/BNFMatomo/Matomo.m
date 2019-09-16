@@ -54,6 +54,16 @@ RCT_EXPORT_METHOD(setUserId:(NSString* _Nonnull)userID)
     }
 }
 
+RCT_EXPORT_METHOD(setAppOptOut:(BOOL)isOptedOut)
+{
+#if DEBUG
+    RCTLogInfo(@"Setting opt-out");
+#endif
+    if (tracker != nil) {
+        tracker.isOptedOut = true;
+    }
+}
+
 RCT_EXPORT_METHOD(setCustomDimension: (NSInteger* _Nonnull)index value: (NSString* _Nullable)value)
 {
 #if DEBUG
