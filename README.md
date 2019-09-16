@@ -1,4 +1,9 @@
 # Matomo SDK for React Native
+[![npm (scoped)](https://img.shields.io/npm/v/@medicinaesolutions/react-native-matomo)](https://www.npmjs.com/package/@medicinaesolutions/react-native-matomo)
+
+`yarn add @medicinaesolutions/react-native-matomo`
+
+*Note:* This package is a fork of [react-native-matomo](https://github.com/BonifyByForteil/react-native-matomo), but PRs will be created there for new features.
 
 This document describes how to get started using the Matomo Tracking SDK for React Native.
 [Matomo](https://matomo.org/) is the leading open source web analytics platform
