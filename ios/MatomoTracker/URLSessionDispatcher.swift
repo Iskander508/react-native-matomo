@@ -1,10 +1,6 @@
 import Foundation
 
-#if os(OSX)
-    import WebKit
-#elseif os(iOS)
-    import UIKit
-#endif
+import WebKit
 
 final class URLSessionDispatcher: Dispatcher {
     
@@ -20,36 +16,31 @@ final class URLSessionDispatcher: Dispatcher {
     /// - Parameters:
     ///   - baseURL: The url of the Matomo server. This url has to end in `piwik.php`.
     ///   - userAgent: An optional parameter for custom user agent.
-    init(baseURL: URL, userAgent: String? = nil) {                
+    init(baseURL: URL, userAgent: String? = nil) {
         self.baseURL = baseURL
         self.timeout = 5
         self.session = URLSession.shared
-        DispatchQueue.main.async {
-            self.userAgent = userAgent ?? URLSessionDispatcher.defaultUserAgent()
+        self.userAgent = userAgent
+        if userAgent == nil {
+            self.setDefaultUserAgent()
         }
     }
     
-    private static func defaultUserAgent() -> String {
-        assertMainThread()
-        #if os(OSX)
-            let webView = WebView(frame: .zero)
-            let currentUserAgent = webView.stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? ""
-        #elseif os(iOS)
-            let webView = UIWebView(frame: .zero)
-            var currentUserAgent = webView.stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? ""
-            if let regex = try? NSRegularExpression(pattern: "\\((iPad|iPhone);", options: .caseInsensitive) {
-                let deviceModel = Device.makeCurrentDevice().platform
-                currentUserAgent = regex.stringByReplacingMatches(
-                    in: currentUserAgent,
-                    options: .withTransparentBounds,
-                    range: NSRange(location: 0, length: currentUserAgent.count),
-                    withTemplate: "(\(deviceModel);"
-                )
+    private func setDefaultUserAgent() {
+        let webView = WKWebView(frame: .zero)
+        webView.evaluateJavaScript("navigator.userAgent") { (result, error) in
+            if let ua = result as? String {
+                if let regex = try? NSRegularExpression(pattern: "\\((iPad|iPhone);", options: .caseInsensitive) {
+                    let deviceModel = Device.makeCurrentDevice().platform
+                    self.userAgent = regex.stringByReplacingMatches(
+                        in: ua,
+                        options: .withTransparentBounds,
+                        range: NSRange(location: 0, length: ua.count),
+                        withTemplate: "(\(deviceModel);"
+                    ).appending(" MatomoTracker SDK URLSessionDispatcher")
+                }
             }
-        #elseif os(tvOS)
-            let currentUserAgent = ""
-        #endif
-        return currentUserAgent.appending(" MatomoTracker SDK URLSessionDispatcher")
+        }
     }
     
     func send(events: [Event], success: @escaping ()->(), failure: @escaping (_ error: Error)->()) {
@@ -87,4 +78,3 @@ final class URLSessionDispatcher: Dispatcher {
     }
     
 }
-
