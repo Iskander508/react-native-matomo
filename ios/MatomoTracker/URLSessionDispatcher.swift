@@ -21,24 +21,28 @@ final class URLSessionDispatcher: Dispatcher {
         self.timeout = 5
         self.session = URLSession.shared
         self.userAgent = userAgent
-        if userAgent == nil {
+        if self.userAgent == nil {
             self.setDefaultUserAgent()
         }
     }
     
     private func setDefaultUserAgent() {
-        let webView = WKWebView(frame: .zero)
-        webView.evaluateJavaScript("navigator.userAgent") { (result, error) in
-            if let ua = result as? String {
-                if let regex = try? NSRegularExpression(pattern: "\\((iPad|iPhone);", options: .caseInsensitive) {
-                    let deviceModel = Device.makeCurrentDevice().platform
-                    self.userAgent = regex.stringByReplacingMatches(
-                        in: ua,
-                        options: .withTransparentBounds,
-                        range: NSRange(location: 0, length: ua.count),
-                        withTemplate: "(\(deviceModel);"
-                    ).appending(" MatomoTracker SDK URLSessionDispatcher")
+        DispatchQueue.main.async {
+            let webView = WKWebView(frame: .zero)
+            UIApplication.shared.keyWindow?.rootViewController?.view?.addSubview(webView)
+            webView.evaluateJavaScript("navigator.userAgent") { (result, error) in
+                if let ua = result as? String {
+                    if let regex = try? NSRegularExpression(pattern: "\\((iPad|iPhone);", options: .caseInsensitive) {
+                        let deviceModel = Device.makeCurrentDevice().platform
+                        self.userAgent = regex.stringByReplacingMatches(
+                            in: ua,
+                            options: .withTransparentBounds,
+                            range: NSRange(location: 0, length: ua.count),
+                            withTemplate: "(\(deviceModel);"
+                        ).appending(" MatomoTracker SDK URLSessionDispatcher")
+                    }
                 }
+                webView.removeFromSuperview()
             }
         }
     }
@@ -78,3 +82,4 @@ final class URLSessionDispatcher: Dispatcher {
     }
     
 }
+
