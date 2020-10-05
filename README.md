@@ -1,7 +1,4 @@
 # Matomo SDK for React Native
-[![npm (scoped)](https://img.shields.io/npm/v/@medicinaesolutions/react-native-matomo)](https://www.npmjs.com/package/@medicinaesolutions/react-native-matomo)
-
-`yarn add @medicinaesolutions/react-native-matomo`
 
 *Note:* This package is a fork of [react-native-matomo](https://github.com/BonifyByForteil/react-native-matomo), but PRs will be created there for new features.
 
@@ -23,33 +20,7 @@ Integrating Matomo into your React Native app
 
 ### Include the library
 
-#### iOS
-
-1.  Add `node_modules/react-native-matomo/ios/BNFMatomo.xcodeproj` to your xcode project, usually under the `Libraries` group
-2.  Add `libBNFMatomo.a` (from `Products` under `BNFMatomo.xcodeproj`) to build target's `Linked Frameworks and Libraries` and `Target Dependencies` lists
-3. If the MatomoTracker is the first Swift library in your project you need to add a random .swift file to your project
-4. In your main target set the Swift version to 4.2
-
-#### Android
-
-- Open `/android/settings.gradle`
-- Below `include ':app'` add:
-
-```
-include ':react-native-matomo'
-project(':react-native-matomo').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-matomo/android/')
-```
-
-- Open `android/app/build.gradle`
-- Add the following under `dependencies`:
-
-```
-compile project(':react-native-matomo')
-```
-
-- Open your `MainApplication.java` file under `android/src`
-- Import the lib using `import de.bonify.reactnativematomo.MatomoPackage;`
-- Add the following `new MatomoPackage()` to the `getPackages` function.
+Add the yarn dependency. Since RN 0.60 with autolinking, no further actions needed.
 
 ### Tracker Usage
 
