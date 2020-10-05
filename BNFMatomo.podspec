@@ -9,11 +9,11 @@ Pod::Spec.new do |s|
   s.license       = package['license']
   s.requires_arc  = true
   s.homepage      = package['homepage']
-  s.source        = { :git => 'https://github.com/BonifyByForteil/react-native-matomo.git' }
+  s.source        = { :git => 'https://github.com/Iskander508/react-native-matomo.git' }
   s.platform      = :ios, '9.0'
   s.source_files  = "ios/{BNFMatomo,MatomoTracker}/**/*.{m,h,swift}"
   s.static_framework = true
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
   
   s.dependency 'React'
 end
